@@ -39,3 +39,22 @@ A well written README file can enhance your project and portfolio.  Develop your
 # Introduction
 
 This document forms the write up report for my submission of the Vehicle Detection project
+
+My project consists of the following files:
+
+
+
+
+# Initial exploration
+
+Initially I explorer the dataset and familarised myself with teh HOG representation of the data
+
+## Dataset
+
+I used all sub directories of the dataset, i.e both the GTI and KITTI folders of the vehicle folders.
+The dataset consists of:
+
+ - Vehicles images: 8792
+ - Total Non Vehicles image: 8968
+ 
+ Hence the dataset is fairly evenly balanced, so should not favour one class over the other
