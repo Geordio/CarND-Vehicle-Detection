@@ -59,7 +59,7 @@ I think experiemtated with the HOG function and colourspaces, inorder to try to 
 I selected a vehicle and non vehicle image at random and used the get_hog_features method form the lessons to return the HOG features and image for each of the following colourspaces, return individual channels and all channels, and finally visualising them all.
 
 Below are the visualisations
-![sample_images](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/sample_images.png)
+![sample_images](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/dataset_samples.png)
 
 
 Following the previous projects, I had doubts over the perfomance of the RGB colourspace, and anticipated that another colour would give better performance.
