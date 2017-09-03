@@ -84,6 +84,7 @@ As I starting point, I used only the HOG features as the input features. I had p
 
 The table below shows the accuracy of each colourspace (and the channels within each colourspace), when used as the input features
 |Colourspace|Channel|Accuracy|Train Time
+| ------------- |:-------------:|:-------------:|:-------------:|
 |RGB|ALL |0.9707|17.1
 |RGB|0 |0.9538|4.55
 |RGB|1 |0.9606|3.91
