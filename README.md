@@ -2,16 +2,6 @@
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 
-In this project, your goal is to write a software pipeline to detect vehicles in a video (start with the test_video.mp4 and later implement on full project_video.mp4), but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
-
-Creating a great writeup:
----
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You can submit your writeup in markdown or use another method and submit a pdf instead.
-
 The Project
 ---
 
@@ -31,9 +21,6 @@ Some example images for testing your pipeline on single frames are located in th
 **As an optional challenge** Once you have a working pipeline for vehicle detection, add in your lane-finding algorithm from the last project to do simultaneous lane-finding and vehicle detection!
 
 **If you're feeling ambitious** (also totally optional though), don't stop there!  We encourage you to go out and take video of your own, and show us how you would implement this project on a new video!
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
 
 
 # Introduction
@@ -79,20 +66,62 @@ Following the previous projects, I had doubts over the perfomance of the RGB col
 From a human eye perspective, it appears that a number of colour spaces produce potentially good images and HOG feature images that could potentially be good feature sources.
 HLS L Channel, HSV V Channel, LAB L Channel, and the YCbCr Y  channel all produce outputs that look reasonable when visualised.
  However, in order to determine which performs best I will use each colourspace and channel (all, 0,1,2) s an input to my classifier.
+ Below are visualisations of the channels of the candidate colour spaces, followed by the HOG feature imageof each of these.
+
+Visualisation of Vehicle, HLS Colorspace
 
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_hls.png)
+
+Visualisation of Vehicle, HSV Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_hsv.png)
+
+Visualisation of Vehicle, LUV Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_luv.png)
+
+Visualisation of Vehicle, RGB Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_rgb.png)
+
+Visualisation of Vehicle, YCrCb Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_ycrcb.png)
+
+Visualisation of Vehicle, LAB Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_lab.png)
+
+Visualisation of Vehicle, YUV Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_yuv.png)
+
+Visualisation of Non Vehicle, HLS Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_hls.png)
+
+Visualisation of Non Vehicle, HSV Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_hsv.png)
+
+Visualisation of Non Vehicle, LUV Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_luv.png)
+
+Visualisation of Non Vehicle, RGB Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_rgb.png)
+
+Visualisation of Non Vehicle, YCrCb Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_ycrcb.png)
+
+Visualisation of Non Vehicle, LAB Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_lab.png)
+
+Visualisation of Non Vehicle, YUV Colorspace
+
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_yuv.png)
 
     
@@ -142,31 +171,58 @@ From the above results, using all channels of the HLS colourspace would appear t
 
 
 
-Sliding Window Search
+## Sliding Window Search
 
-I started from the code provided in the lesson as the basis for this functionality.
+I started from the code provided in the lesson as the basis for this functionality. This is implemented in the 'find_cars' method.
 
 I initially started using a single window size, and searched my region of interest with this. However, as pointed out in the lessons, the vehicles further away are obviously musch smaller, hence I implemented functionality to use a larger window in the foreground, with smaller windows in the middle distance and smallest windows at the furthest distance away.
 I didn't adjust the size depending upon the horizontal distance from the centre of the vehicle but that should be considered in the future.
 
+The overlap was specified using the number of cells to overlap by. I used 2 cells as teh overlap, which is equivalent to an overlap of 75%.
+I trialed using a smaller overlap between windows, but found that it did not detect cars that were present.
+
+I estblished the size of windows again using trial and error. I started wit a scale of 1, which gives a window of 64 x 64.
+I initially implemented additional windows with scales of 1.5 and 2, but found that this was not detecting the nearer vehicle consistently. I hence increase to include a scale of 3 and 4.
+I found that this worked well. I did try scales of less than 1 but found that this created a lot of false positives. 
+I finally used 1, 2, 3, 4. (note I removed the wndows with a scale of 1.5)
+
+Below is a visualisation of my window search. (Note that the titles have become corrupted, they are from top to bottom, input image, Scale 1, Scale 1.5, Scale 2, Scale 3, Scale 4.
+
+![windows](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/windows_all_before_move_up.png)
+
+The windows in Red are ones where the pipeline has detected a vehicle. Note that from this visualisation, I decided that the larger window should be higher up the image, as the Scale 3 window fails to detect a vehicle, and is very close to the boundary of the subject vehicle.
+
+I used the code from the lesson material as a basis from my implementation of Heatmaps in order to aggregate multiple detections of a single vehicle.
+Below is an example of an output from teh processing along with the associated heatmap
+
+![heatmaps](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/heatmap.png)
 
 
+## Video Implementation
+
+For processing of videos, my pipeline essentially remains the same. The only key difference is that previous frames and detections are used with the detections on the current frame in order to smooth the output and eliminate false positives.
+In order to do this, I store the boxes detected on the previous 10 frames (at time of writing this was set to 10, but I may have tuned since).
+The boxes from the previous frames are used to create an overall heatmap of the recent frames, with this then being used to create teh bounding boxes for each detected vehicle.
+When used for a single frame, the threshold for heatmap detection is set to 1, when used for video, the threshold is set to 5.
 
 
-Heat maps
+The output from the 'project_video.mp3' is at the following link ![output video](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/project_output.mp4)
 
 
-Discussion
+## Discussion
 
+### Potential Improvements
 The pipeline could be improved by the following:
 - Considering the colour histogram and spacial bin features
 - Exploration of different classifier types, such as implementing decision tree, Naive Bayes
 - Using more data to train the classifier. This could be via additional images or through augmented data. The number of samples in the data is quite small. Even though the classified works well against the test set, the test dataset images and the cars from the videos are not too similar.
+- I would be interested to see if a CNN would be faster if optimised for running on a GPU
 
-Limitations
+### Limitations
 - The classifier would need to be retrained if different vehicle types are released to market that could result in different HOG signatures
 - The pipeline does not consider gradients, hence the assumptions that vehicles at a given y value are at a particular distance from the car would not always be correct.
 - The majority of images in the dataset are of vehicle taken from the rear, hence on a single carriageway where vehilces are likely to be seen in both directions could have issues in identifying cars.
 - As with the LaneFinding project, the pipeline does not compensate the bumps in the road surface, such as when the vehicle enters and exits what appears to be a bridge section. On a real car, the system could make use of the vehicles build in sensors such as yaw and steering angle
 - The pipeline is not optimised and cannot cope with real time processing of a video stream.
 - For some of the different scaled sliding windows, there is a gap at the right hand side of the image, where only a partial box can fit. This should be addressed.
+- Only using a forward facing camera limits the field of vision and the amount of time to track vehicles. If the vehilce was fitted with more cameras, like many autonomous vehicles are then the peipleine could be updated to allow tracking of vehicles on all cameras
