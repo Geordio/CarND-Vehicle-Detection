@@ -42,7 +42,12 @@ This document forms the write up report for my submission of the Vehicle Detecti
 
 My project consists of the following files:
 
-
+| File        | Description        |
+| ------------- |:-------------:|
+| dataset_explore.ipynb      | jupyter notebook used for initial dataset exploration, including, size, mix, sample images, and colourspace visualisations |
+| solution.ipynb | jupyter notebook for full pipeline of my solution    |
+|output.mp4 | output video of my processing of a test video |
+|README.md| Project report (this file)|
 
 
 # Initial exploration
@@ -67,7 +72,7 @@ I think experiemtated with the HOG function and colourspaces, inorder to try to 
 I selected a vehicle and non vehicle image at random and used the get_hog_features method form the lessons to return the HOG features and image for each of the following colourspaces, return individual channels and all channels, and finally visualising them all.
 
 Below are the visualisations
-![sample_images](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/sample_images.png)
+![sample_images](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/sample_images.png)
 
 
 Following the previous projects, I had doubts over the perfomance of the RGB colourspace, and anticipated that another colour would give better performance.
@@ -75,20 +80,20 @@ From a human eye perspective, it appears that a number of colour spaces produce 
 HLS L Channel, HSV V Channel, LAB L Channel, and the YCbCr Y  channel all produce outputs that look reasonable when visualised.
  However, in order to determine which performs best I will use each colourspace and channel (all, 0,1,2) s an input to my classifier.
 
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_veh_hls.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_veh_hsv.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_veh_luv.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_veh_rgb.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_veh_ycrcb.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_veh_lab.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_veh_yuv.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_non_veh_hls.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_non_veh_hsv.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_non_veh_luv.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_non_veh_rgb.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_non_veh_ycrcb.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_non_veh_lab.png)
-![colourspaces](https://github.com/Geordio/CarND-Advanced-Lane-Lines/blob/master/output_images/hog_non_veh_yuv.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_hls.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_hsv.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_luv.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_rgb.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_ycrcb.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_lab.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_yuv.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_hls.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_hsv.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_luv.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_rgb.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_ycrcb.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_lab.png)
+![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_yuv.png)
 
     
 
