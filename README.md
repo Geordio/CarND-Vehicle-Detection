@@ -57,4 +57,42 @@ The dataset consists of:
  - Vehicles images: 8792
  - Total Non Vehicles image: 8968
  
- Hence the dataset is fairly evenly balanced, so should not favour one class over the other
+ Hence the dataset is fairly evenly balanced, so should not favour one class over the other.
+ 
+ It is worth noting that some vehicle images are from angles that will not be seen in the video samples, so are not actually helpful for the classification and could result in incorrect classifications.
+
+Below are some sample of the vehicle and non vehicle images, selected at random.
+
+I think experiemtated with the HOG function and colourspaces, inorder to try to identify which colour space and channels could potentially give teh best perfomance.
+I selected a vehicle and non vehicle image at random and used the get_hog_features method form the lessons to return the HOG features and image for each of the following colourspaces, return individual channels and all channels, and finally visualising them all.
+
+Below are the visualisations
+
+Following the previous projects, I had doubts over the perfomance of the RGB colourspace, and anticipated that another colour would give better performance.
+From a human eye perspective, it appears that a number of colour spaces produce potentially good images and HOG feature images that could potentially be good feature sources.
+HLS L Channel, HSV V Channel, LAB L Channel, and the YCbCr Y  channel all produce outputs that look reasonable when visualised.
+ However, in order to determine which performs best I will use each colourspace and channel (all, 0,1,2) s an input to my classifier.
+ 
+
+
+## Classifier
+
+I used a Linear SVC from the sklearn libraries.
+Due to time constraints I didn't have time to experiment with other classifiers.
+
+As I starting point, I used only the HOG features as the input features. I had planned to expand the feature input to use spatial binning but again de to the time constraints, and due to the fact I acheived acceptable performace with only HOG features I did not continue with this plan.
+
+
+
+Sliding Window Search
+
+I started from the code provided in the lesson as the basis for this functionality.
+
+I initially started using a single window size, and searched my region of interest with this. However, as pointed out in the lessons, the vehicles further away are obviously musch smaller, hence I implemented functionality to use a larger window in the foreground, with smaller windows in the middle distance and smallest windows at the furthest distance away.
+I didn't adjust the size depending upon the horizontal distance from the centre of the vehicle but that should be considered in the future.
+
+
+
+
+
+Heat maps
