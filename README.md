@@ -82,7 +82,36 @@ Due to time constraints I didn't have time to experiment with other classifiers.
 
 As I starting point, I used only the HOG features as the input features. I had planned to expand the feature input to use spatial binning but again de to the time constraints, and due to the fact I acheived acceptable performace with only HOG features I did not continue with this plan.
 
-
+The table below shows the accuracy of each colourspace (and the channels within each colourspace), when used as the input features
+|Colourspace|Channel|Accuracy|Train Time
+|RGB|ALL |0.9707|17.1
+|RGB|0 |0.9538|4.55
+|RGB|1 |0.9606|3.91
+|RGB|2 |0.9589|4.03
+|HLS|ALL|0.9837|8.51
+|HLS|0|0.9336|5.3
+|HLS|1|0.9654|4.17
+|HLS|2|0.9074|5.89
+|HSV|ALL|0.9834|7.49
+|HSV|0|0.9299|5.73
+|HSV|1|0.9091|5.67
+|HSV|2|0.9637|4.08
+|YUV|ALL|0.9825|7.86
+|YUV|0|0.9699|4.2
+|YUV|1|0.9412|3.99
+|YUV|2|0.9271|4.82
+|LUV|ALL|0.9764|8.86
+|LUV|0|0.9606|4.03
+|LUV|1|0.9372|4.37
+|LUV|2|0.9268|5.23
+|YCrCb|ALL|0.9814|6.94
+|YCrCb|0|0.9662|4.13
+|YCrCb|1|0.9496|4.22
+|YCrCb|2|0.9268|4.42
+|LAB|ALL|0.978|8.47
+|LAB|0|0.9626|4.12
+|LAB|1|0.9229|4.11
+|LAB|2|0.9158|5.82
 
 Sliding Window Search
 
