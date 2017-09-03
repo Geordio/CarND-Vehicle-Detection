@@ -83,6 +83,7 @@ Due to time constraints I didn't have time to experiment with other classifiers.
 As I starting point, I used only the HOG features as the input features. I had planned to expand the feature input to use spatial binning but again de to the time constraints, and due to the fact I acheived acceptable performace with only HOG features I did not continue with this plan.
 
 The table below shows the accuracy of each colourspace (and the channels within each colourspace), when used as the input features
+
 |Colourspace|Channel|Accuracy|Train Time
 | ------------- |:-------------:|:-------------:|:-------------:|
 |RGB|ALL |0.9707|17.1
