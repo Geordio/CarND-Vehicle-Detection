@@ -138,11 +138,12 @@ Discussion
 The pipeline could be improved by the following:
 - Considering the colour histogram and spacial bin features
 - Exploration of different classifier types, such as implementing decision tree, Naive Bayes
-- Using more data to train the classifier. This could be via additional images or through augmented data
+- Using more data to train the classifier. This could be via additional images or through augmented data. The number of samples in the data is quite small. Even though the classified works well against the test set, the test dataset images and the cars from the videos are not too similar.
 
 Limitations
 - The classifier would need to be retrained if different vehicle types are released to market that could result in different HOG signatures
 - The pipeline does not consider gradients, hence the assumptions that vehicles at a given y value are at a particular distance from the car would not always be correct.
 - The majority of images in the dataset are of vehicle taken from the rear, hence on a single carriageway where vehilces are likely to be seen in both directions could have issues in identifying cars.
 - As with the LaneFinding project, the pipeline does not compensate the bumps in the road surface, such as when the vehicle enters and exits what appears to be a bridge section. On a real car, the system could make use of the vehicles build in sensors such as yaw and steering angle
-
+- The pipeline is not optimised and cannot cope with real time processing of a video stream.
+- For some of the different scaled sliding windows, there is a gap at the right hand side of the image, where only a partial box can fit. This should be addressed.
