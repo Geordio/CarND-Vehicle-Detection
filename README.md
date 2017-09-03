@@ -115,6 +115,10 @@ The table below shows the accuracy of each colourspace (and the channels within 
 |LAB|1|0.9229|4.11
 |LAB|2|0.9158|5.82
 
+From the above results, using all channels of the HLS colourspace would appear to give the best results, although using all of the HSV space is within 0.03% of this.
+
+
+
 Sliding Window Search
 
 I started from the code provided in the lesson as the basis for this functionality.
@@ -127,3 +131,18 @@ I didn't adjust the size depending upon the horizontal distance from the centre 
 
 
 Heat maps
+
+
+Discussion
+
+The pipeline could be improved by the following:
+- Considering the colour histogram and spacial bin features
+- Exploration of different classifier types, such as implementing decision tree, Naive Bayes
+- Using more data to train the classifier. This could be via additional images or through augmented data
+
+Limitations
+- The classifier would need to be retrained if different vehicle types are released to market that could result in different HOG signatures
+- The pipeline does not consider gradients, hence the assumptions that vehicles at a given y value are at a particular distance from the car would not always be correct.
+- The majority of images in the dataset are of vehicle taken from the rear, hence on a single carriageway where vehilces are likely to be seen in both directions could have issues in identifying cars.
+- As with the LaneFinding project, the pipeline does not compensate the bumps in the road surface, such as when the vehicle enters and exits what appears to be a bridge section. On a real car, the system could make use of the vehicles build in sensors such as yaw and steering angle
+
