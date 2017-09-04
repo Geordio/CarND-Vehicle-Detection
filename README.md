@@ -66,7 +66,7 @@ Following the previous projects, I had doubts over the perfomance of the RGB col
 From a human eye perspective, it appears that a number of colour spaces produce potentially good images and HOG feature images that could potentially be good feature sources.
 HLS L Channel, HSV V Channel, LAB L Channel, and the YCbCr Y  channel all produce outputs that look reasonable when visualised.
  However, in order to determine which performs best I will use each colourspace and channel (all, 0,1,2) s an input to my classifier.
- Below are visualisations of the channels of the candidate colour spaces, followed by the HOG feature imageof each of these.
+ Below are visualisations of the channels of the candidate colour spaces, followed by the HOG feature image of each of these.
 
 Visualisation of Vehicle, HLS Colorspace
 
@@ -132,7 +132,16 @@ Visualisation of Non Vehicle, YUV Colorspace
 I used a Linear SVC from the sklearn libraries.
 Due to time constraints I didn't have time to experiment with other classifiers.
 
-As I starting point, I used only the HOG features as the input features. I had planned to expand the feature input to use spatial binning but again de to the time constraints, and due to the fact I acheived acceptable performace with only HOG features I did not continue with this plan.
+As I starting point, I used only the HOG features as the input features. I had planned to expand the feature input to use spatial binning but again de to the time constraints, and due to the fact I achieved acceptable performace with only HOG features I did not continue with this plan.
+I used the following parameters for the HOG function:
+orient=9
+pix_per_cell=8 
+cell_per_block=2 
+ 
+
+I found that increasing the Orient parameter resulted in signicantly increasing the training time, but without significantly improving performance.
+I tried 8 and 16 for the pixels per cell parameter. Using a value of 8 had an increased training time, but slightly better performance or the test images.
+I didnt experiment with the cells per block parameter.
 
 The table below shows the accuracy of each colourspace (and the channels within each colourspace), when used as the input features
 
@@ -168,7 +177,7 @@ The table below shows the accuracy of each colourspace (and the channels within 
 |LAB|2|0.9158|5.82
 
 From the above results, using all channels of the HLS colourspace would appear to give the best results, although using all of the HSV space is within 0.03% of this.
-
+After deciding upon the features and classifier, I used the StandardScaler from sklearn to scale my features
 
 
 ## Sliding Window Search
@@ -178,13 +187,13 @@ I started from the code provided in the lesson as the basis for this functionali
 I initially started using a single window size, and searched my region of interest with this. However, as pointed out in the lessons, the vehicles further away are obviously musch smaller, hence I implemented functionality to use a larger window in the foreground, with smaller windows in the middle distance and smallest windows at the furthest distance away.
 I didn't adjust the size depending upon the horizontal distance from the centre of the vehicle but that should be considered in the future.
 
-The overlap was specified using the number of cells to overlap by. I used 2 cells as teh overlap, which is equivalent to an overlap of 75%.
+The overlap was specified using the number of cells to overlap by. I used 2 cells as the overlap originally, then reduced this to 1 as I found that this improved the perfomance, although this had a penalty to the processing time, which is equivalent to an overlap of 75%.
 I trialed using a smaller overlap between windows, but found that it did not detect cars that were present.
 
-I estblished the size of windows again using trial and error. I started wit a scale of 1, which gives a window of 64 x 64.
+I established the size of windows again using trial and error. I started with a scale of 1, which gives a window of 64 x 64.
 I initially implemented additional windows with scales of 1.5 and 2, but found that this was not detecting the nearer vehicle consistently. I hence increase to include a scale of 3 and 4.
 I found that this worked well. I did try scales of less than 1 but found that this created a lot of false positives. 
-I finally used 1, 2, 3, 4. (note I removed the wndows with a scale of 1.5)
+I finally used 1, 2, 3, 4. (note I removed the windows with a scale of 1.5) TODO REVIEW BASED ON FINAL FINDING
 
 Below is a visualisation of my window search. (Note that the titles have become corrupted, they are from top to bottom, input image, Scale 1, Scale 1.5, Scale 2, Scale 3, Scale 4.
 
@@ -193,10 +202,15 @@ Below is a visualisation of my window search. (Note that the titles have become 
 The windows in Red are ones where the pipeline has detected a vehicle. Note that from this visualisation, I decided that the larger window should be higher up the image, as the Scale 3 window fails to detect a vehicle, and is very close to the boundary of the subject vehicle.
 
 I used the code from the lesson material as a basis from my implementation of Heatmaps in order to aggregate multiple detections of a single vehicle.
-Below is an example of an output from teh processing along with the associated heatmap
+Below is an example of an output from the processing along with the associated heatmap
 
 ![heatmaps](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/heatmap.png)
 
+Below is the output for all test images provided.
+
+![test output](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/test_images_output.png)
+
+Note that the first image has a false positive detection against the hard shoulder on the left. In the test3 image the white car is missed.
 
 ## Video Implementation
 
@@ -217,6 +231,7 @@ The pipeline could be improved by the following:
 - Exploration of different classifier types, such as implementing decision tree, Naive Bayes
 - Using more data to train the classifier. This could be via additional images or through augmented data. The number of samples in the data is quite small. Even though the classified works well against the test set, the test dataset images and the cars from the videos are not too similar.
 - I would be interested to see if a CNN would be faster if optimised for running on a GPU
+- I had signifianct issues when transferring from the test set I created to the images from the test image files and teh video feed. I don't know if this was purely down to the variance between the 2 datasources, or what I suspect, that it might be down the the difference of how png and jpg files are handled by mpimg and the other python libraries.
 
 ### Limitations
 - The classifier would need to be retrained if different vehicle types are released to market that could result in different HOG signatures
