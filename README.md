@@ -213,9 +213,10 @@ The boxes from the previous frames are used to create an overall heatmap of the 
 
 The output from the 'project_video.mp3' is at the following link ![output video](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/project_output.mp4)
 
-The output from the 'test_video.mp3' is at the following link ![output video](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/test_output.mp4)
+The output from the 'test_video.mp3' is at the following link ![output video](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/test_video_output.mp4)
 
-
+The output from the 'challenge_video.mp3' from the advanced lane lines project is at the following link ![output video](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/test_video_output.mp4)
+Note that this shows the detection of vehicles on the opposite carriageway
 ## Discussion
 
 ### Potential Improvements
@@ -234,3 +235,5 @@ The pipeline could be improved by the following:
 - The pipeline is not optimised and cannot cope with real time processing of a video stream.
 - For some of the different scaled sliding windows, there is a gap at the right hand side of the image, where only a partial box can fit. This should be addressed.
 - Only using a forward facing camera limits the field of vision and the amount of time to track vehicles. If the vehilce was fitted with more cameras, like many autonomous vehicles are then the peipleine could be updated to allow tracking of vehicles on all cameras
+- The pipeline loses vehicles if they are blocked by another vehilce. This can be seen on the project video output. When hidden vehicle reappears, there is a period where the 2 vehicles are detected as a single vehicle. 
+- Vehicle on teh opposite carriageway are occasionally detected. These are not that important for the path planning of our vehicle and should be classed differently than vehicles on the same carriageway.
