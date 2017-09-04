@@ -72,47 +72,36 @@ Visualisation of Vehicle, HLS Colorspace
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_hls.png)
 
 Visualisation of Vehicle, HSV Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_hsv.png)
 
 Visualisation of Vehicle, LUV Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_luv.png)
 
 Visualisation of Vehicle, RGB Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_rgb.png)
 
 Visualisation of Vehicle, YCrCb Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_ycrcb.png)
 
 Visualisation of Vehicle, LAB Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_lab.png)
 
 Visualisation of Vehicle, YUV Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_yuv.png)
 
 Visualisation of Non Vehicle, HLS Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_hls.png)
 
 Visualisation of Non Vehicle, HSV Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_hsv.png)
 
 Visualisation of Non Vehicle, LUV Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_luv.png)
 
 Visualisation of Non Vehicle, RGB Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_rgb.png)
 
 Visualisation of Non Vehicle, YCrCb Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_ycrcb.png)
 
 
