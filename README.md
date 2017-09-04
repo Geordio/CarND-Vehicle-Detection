@@ -176,9 +176,9 @@ The overlap was specified using the number of cells to overlap by. I used 2 cell
 I trialed using a smaller overlap between windows, but found that it did not detect cars that were present.
 
 I established the size of windows again using trial and error. I started with a scale of 1, which gives a window of 64 x 64.
-I initially implemented additional windows with scales of 1.5 and 2, but found that this was not detecting the nearer vehicle consistently. I hence increase to include a scale of 3 and 4.
+I initially implemented additional windows with scales of 1.5 and 2, but found that this was not detecting the nearer vehicle consistently, when using the HLS or HSV colourspaces. I hence increase to include a scale of 3 and 4.
 I found that this worked well. I did try scales of less than 1 but found that this created a lot of false positives. 
-I finally used 1, 2, 3, 4. (note I removed the windows with a scale of 1.5) TODO REVIEW BASED ON FINAL FINDING
+
 
 Below is a visualisation of my window search. (Note that the titles have become corrupted, they are from top to bottom, input image, Scale 1, Scale 1.5, Scale 2, Scale 3, Scale 4.
 
@@ -202,7 +202,7 @@ Note that the first image has a false positive detection against the hard should
 For processing of videos, my pipeline essentially remains the same. The only key difference is that previous frames and detections are used with the detections on the current frame in order to smooth the output and eliminate false positives.
 In order to do this, I store the boxes detected on the previous 10 frames (at time of writing this was set to 10, but I may have tuned since).
 The boxes from the previous frames are used to create an overall heatmap of the recent frames, with this then being used to create teh bounding boxes for each detected vehicle.
-When used for a single frame, the threshold for heatmap detection is set to 1, when used for video, the threshold is set to 5.
+When used for a single frame, the threshold for heatmap detection is set to 4, when used for video, the threshold is set to 10.
 
 
 The output from the 'project_video.mp3' is at the following link ![output video](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/project_output.mp4)
@@ -216,7 +216,7 @@ The pipeline could be improved by the following:
 - Exploration of different classifier types, such as implementing decision tree, Naive Bayes
 - Using more data to train the classifier. This could be via additional images or through augmented data. The number of samples in the data is quite small. Even though the classified works well against the test set, the test dataset images and the cars from the videos are not too similar.
 - I would be interested to see if a CNN would be faster if optimised for running on a GPU
-- I had signifianct issues when transferring from the test set I created to the images from the test image files and teh video feed. I don't know if this was purely down to the variance between the 2 datasources, or what I suspect, that it might be down the the difference of how png and jpg files are handled by mpimg and the other python libraries.
+- I had signifianct issues when transferring from the test set I created to the images from the test image files and the video feed. I don't know if this was purely down to the variance between the 2 datasources, or what I suspect, that it might be down the the difference of how png and jpg files are handled by mpimg and the other python libraries.
 
 ### Limitations
 - The classifier would need to be retrained if different vehicle types are released to market that could result in different HOG signatures
