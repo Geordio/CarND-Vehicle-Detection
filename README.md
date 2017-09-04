@@ -164,6 +164,8 @@ The table below shows the accuracy of each colourspace (and the channels within 
 From the above results, using all channels of the HLS colourspace would appear to give the best results, although using all of the HSV space is within 0.03% of this.
 After deciding upon the features and classifier, I used the StandardScaler from sklearn to scale my features
 
+Note, that although that HLS, HSV and YCrCb all performed similarly on the test set, ultimately on the video and test_image files, the YCrCb colour space performed much better than any other colourspace, so I finally used this.
+
 
 ## Sliding Window Search
 
@@ -178,34 +180,40 @@ I trialed using a smaller overlap between windows, but found that it did not det
 I established the size of windows again using trial and error. I started with a scale of 1, which gives a window of 64 x 64.
 I initially implemented additional windows with scales of 1.5 and 2, but found that this was not detecting the nearer vehicle consistently, when using the HLS or HSV colourspaces. I hence increase to include a scale of 3 and 4.
 I found that this worked well. I did try scales of less than 1 but found that this created a lot of false positives. 
-
+Keeping the number of window scales as small as possible will aid the speed performance. Ideally I would like to change teh overlap back to 2 cells from 1 as this would also improve perfomance.
 
 Below is a visualisation of my window search. (Note that the titles have become corrupted, they are from top to bottom, input image, Scale 1, Scale 1.5, Scale 2, Scale 3, Scale 4.
 
-![windows](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/windows_all_before_move_up.png)
+![windows](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/windows_all_all.png)
 
 The windows in Red are ones where the pipeline has detected a vehicle. Note that from this visualisation, I decided that the larger window should be higher up the image, as the Scale 3 window fails to detect a vehicle, and is very close to the boundary of the subject vehicle.
+Note that this shows all the scales, but finally I only used 1, 1.5 and 2
 
 I used the code from the lesson material as a basis from my implementation of Heatmaps in order to aggregate multiple detections of a single vehicle.
 Below is an example of an output from the processing along with the associated heatmap
 
 ![heatmaps](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/heatmap.png)
 
+When used for a single frame, the threshold for heatmap detection is set to 4, when used for video, the threshold is set to 15 over 10 frames.
+
 Below is the output for all test images provided.
 
 ![test output](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/test_images_output.png)
 
-Note that the first image has a false positive detection against the hard shoulder on the left. In the test3 image the white car is missed.
+Note that in the test3 image the white car is missed.
+
+
 
 ## Video Implementation
 
 For processing of videos, my pipeline essentially remains the same. The only key difference is that previous frames and detections are used with the detections on the current frame in order to smooth the output and eliminate false positives.
-In order to do this, I store the boxes detected on the previous 10 frames (at time of writing this was set to 10, but I may have tuned since).
-The boxes from the previous frames are used to create an overall heatmap of the recent frames, with this then being used to create teh bounding boxes for each detected vehicle.
-When used for a single frame, the threshold for heatmap detection is set to 4, when used for video, the threshold is set to 10.
+In order to do this, I store the boxes detected on the previous 10 frames
+The boxes from the previous frames are used to create an overall heatmap of the recent frames, with this then being used to create the bounding boxes for each detected vehicle. Then the aggregated heatmap is filtered by threshold, with a value of 15 detections over teh 10 frames required. Finally I draw a bounding box round the maximum limits of the heatmap.
 
 
 The output from the 'project_video.mp3' is at the following link ![output video](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/project_output.mp4)
+
+The output from the 'test_video.mp3' is at the following link ![output video](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/test_output.mp4)
 
 
 ## Discussion
@@ -222,7 +230,7 @@ The pipeline could be improved by the following:
 - The classifier would need to be retrained if different vehicle types are released to market that could result in different HOG signatures
 - The pipeline does not consider gradients, hence the assumptions that vehicles at a given y value are at a particular distance from the car would not always be correct.
 - The majority of images in the dataset are of vehicle taken from the rear, hence on a single carriageway where vehilces are likely to be seen in both directions could have issues in identifying cars.
-- As with the LaneFinding project, the pipeline does not compensate the bumps in the road surface, such as when the vehicle enters and exits what appears to be a bridge section. On a real car, the system could make use of the vehicles build in sensors such as yaw and steering angle
+- As with the LaneFinding project, the pipeline does not compensate the bumps in the road surface. On a real car, the system could make use of the vehicles build in sensors such as yaw and steering angle.
 - The pipeline is not optimised and cannot cope with real time processing of a video stream.
 - For some of the different scaled sliding windows, there is a gap at the right hand side of the image, where only a partial box can fit. This should be addressed.
 - Only using a forward facing camera limits the field of vision and the amount of time to track vehicles. If the vehilce was fitted with more cameras, like many autonomous vehicles are then the peipleine could be updated to allow tracking of vehicles on all cameras
