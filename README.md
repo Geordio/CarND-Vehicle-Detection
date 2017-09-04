@@ -69,7 +69,6 @@ HLS L Channel, HSV V Channel, LAB L Channel, and the YCbCr Y  channel all produc
  Below are visualisations of the channels of the candidate colour spaces, followed by the HOG feature image of each of these.
 
 Visualisation of Vehicle, HLS Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_veh_hls.png)
 
 Visualisation of Vehicle, HSV Colorspace
@@ -116,12 +115,9 @@ Visualisation of Non Vehicle, YCrCb Colorspace
 
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_ycrcb.png)
 
-Visualisation of Non Vehicle, LAB Colorspace
 
-![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_lab.png)
 
 Visualisation of Non Vehicle, YUV Colorspace
-
 ![colourspaces](https://github.com/Geordio/CarND-Vehicle-Detection/blob/master/output_images/hog_non_veh_yuv.png)
 
     
